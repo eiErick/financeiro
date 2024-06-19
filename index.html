@@ -7,6 +7,51 @@
     <title>Financeiro</title>
 </head>
 <body>
+    <div class="home">
+        <header>
+            <select class="selected-month">
+                <option value=""></option>
+            </select>
+            <button class="settings-btn btns">
+                <img src="imgs/settings.svg" alt="settings" class="settings-icon">
+            </button>
+        </header>
+        <main>
+            <div class="monitor">
+                <div class="monitor_income"><div class="monitor_income-value"></div>Income</div>
+                <div class="monitor_expenses"><div class="monitor_expenses-value"></div>Expenses</div>
+                <div class="monitor_balance"><div class="monitor_balance-value"></div>Balance</div>
+            </div>
+            <div class="description-container"></div>
+        </main>
+        <footer>
+            <button class="add-income-btn btns">Add income</button>
+            <button class="add-expense-btn btns">Add expense</button>
+        </footer>
+    </div>
+
+    <div class="in-ex-screen">
+        <header>
+            <button class="in-ex-screen_return-home-btn" >
+                <img src="imgs/left.svg" alt="back">
+            </button>
+            <p class="in-ex-screen_title"></p>
+        </header>
+        <main>
+            <label for="in-ex-screen_selected-month" class="context">Month:</label>
+            <select class="in-ex-screen_selected-month" id="in-ex-screen_selected-month">
+                <option value=""></option>
+            </select>
+            <label for="in-ex-screen_description-input" class="context">Title:</label >
+            <input placeholder="Title..." type="text" class="in-ex-screen_description-input" id="in-ex-screen_description-input">
+            <label for="in-ex-screen_value-input" class="context">Value:</label>
+            <input placeholder="Value..." type="number" class="in-ex-screen_value-input" id="in-ex-screen_value-input">
+        </main>
+        <footer>
+            <button class="in-ex-screen_cancel-btn btns">Cancel</button>
+            <button class="in-ex-screen_add-btn btns">Add</button>
+        </footer>
+    </div>
     <script src="theme.js"></script>
     <script src="script.js"></script>
 </body>
