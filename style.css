@@ -47,9 +47,18 @@ body {
     background-color: var(--bg-color);
 }
 
-header {
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home header {
+    width: 100vw;
+    max-width: 50rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: .5rem;
 }
 
@@ -75,16 +84,21 @@ header {
     background-color: #fff;
     border-radius: var(--radius);
     cursor: pointer;
+    margin: 0 0 0 .5rem;
 }
 
 .settings-btn {
     width: 2rem;
     height: 2rem;
+    margin: 0 .5rem 0 0;
 }
 
-main {
+.home main {
     display: flex;
     flex-direction: column;
+    width: 100vw;
+    max-width: 50rem;
+    margin: .5rem;
 }
 
 .monitor {
@@ -120,7 +134,6 @@ main {
     top: 50%;
     right: .5rem;
 }
-
 
 footer {
     width: 100%;
@@ -211,6 +224,17 @@ footer button {
 }
 
 .in-ex-screen footer button {
-    width: 48%;
+    width: 48rem;
     font-size: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+    footer {
+        max-width: 32rem;
+        justify-content: space-evenly;
+    }
+
+    footer button {
+        max-width: 15rem;
+    }
 }

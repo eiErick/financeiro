@@ -68,8 +68,8 @@ selectedMonth.addEventListener('change', () => {
     }
 });
 
-returnHomeBtn.addEventListener('click', () => showScreen(home, 'block'));
-inExScreenCancelBtn.addEventListener('click', () => showScreen(home, 'block'));
+returnHomeBtn.addEventListener('click', () => showScreen(home, 'flex'));
+inExScreenCancelBtn.addEventListener('click', () => showScreen(home, 'flex'));
 
 inExScreenAddBtn.addEventListener('click', () => {
     if (descriptionInput.value === '') return;
@@ -82,7 +82,7 @@ inExScreenAddBtn.addEventListener('click', () => {
     descriptionInput.value = '';
     valueInput.value = '';
 
-    showScreen(home, 'block');
+    showScreen(home, 'flex');
 });
 
 function showScreen(element, show) {
