@@ -48,6 +48,83 @@
             <button class="in-ex-screen_add-btn btns">Add</button>
         </footer>
     </div>
+
+    <div class="settings-screen">
+        <header>
+            <button class="settings-screen_return-home-btn" >
+                <img src="imgs/left.svg" alt="back">
+            </button>
+            <p class="settings-screen_title">Settings</p>
+        </header>
+        <main class="container-options">
+            <span class="profile-settings-btn settings-options"><img src="imgs/person.svg" alt="person icon">Profile</span>
+            <span class="data-settings-btn settings-options"><img src="imgs/data.svg" alt="data icon">Data</span>
+            <span class="theme-settings-btn settings-options"><img src="imgs/theme.svg" alt="theme icon">Theme</span>
+            <span class="language-settings-btn settings-options"><img src="imgs/language.svg" alt="language icon">Language</span>
+            <span class="about-settings-btn settings-options"><img src="imgs/about.svg" alt="about icon">About</span>
+        </main>
+        <div class="screen-settings-option">
+            <div data-option="profile" class="profile-display options-display">
+                <button class="add-profile-btn btns">Add Profile</button>
+            </div>
+
+            <div data-option="Data" class="data-display options-display">
+                <span class="data-export data-btn">Export data</span>
+                <label for="data-inp" class="data-import data-btn">Import data</label>
+                <input type="file" id="data-inp" class="data-inp">
+                <span class="delete-all-finaces data-btn">Delete all finaces</span> 
+            </div>
+
+            <div data-option="theme" class="theme-display options-display">
+                <!-- <select class="style-menu">
+                    <option value="system" selected>System Default</option>
+                    <option value="dark">Dark</option>
+                    <option value="light">Light</option>
+                </select> -->
+            </div>
+
+            <div data-option="language" class="language-display options-display">
+                <!-- <select class="language-menu">
+                    <option value="en" selected>En</option>
+                    <option value="pt">Pt</option>
+                </select> -->
+            </div>
+
+            <div data-option="about" class="about-display options-display">
+                <div>
+                    <!-- <img class="app-img" src="imgs/" alt="financeiro img"> -->
+                    <p class="app-name">Financeiro</p>
+                </div>
+                <div>
+                    <div class="context">Website</div>
+                    <a href="https://eierick.github.io/financeiro" target="_blank">Financeiro</a>
+                </div>
+                    <div class="context">Source Code</div>
+                    <a href="https://github.com/eierick/financeiro" target="_blank">Github</a>
+                <div>
+                    <div class="context">Credits</div>
+                    <p>Made by Érick</p>
+                </div>
+                <div>
+                    <div class="context">Contact</div>
+                    <a href="https://www.instagram.com/eierick.dev" target="_blank">Instagram</a>
+                </div>
+                <div>
+                    <div class="context">Legal</div>
+                    <p class="legal-text">This application comes with absolutely no warranty. See the <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank"> GNU General Public License, version 3 or later</a> for details.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirm">
+        <p class="confirm-msg"></p>
+        <div class="confirm-btns-container">
+            <button class="cancel-confirmation-btn confirm-btns">No</button>
+            <button class="confirm-confirmation-btn confirm-btns">Yes</button>
+        </div>
+    </div>
+
     <script src="theme.js"></script>
     <script src="script.js"></script>
 </body>

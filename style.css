@@ -228,6 +228,215 @@ footer button {
     font-size: 1rem;
 }
 
+/* SETTINGS */
+
+.settings-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.settings-screen_return-home-btn {
+    position: absolute;
+    background-color: transparent;
+    cursor: pointer;
+    width: 39px;
+    height: 39px;
+    left: 0rem;
+}
+
+.settings-screen_return-home-btn img {
+    height: 39px;
+}
+
+.settings-screen_title {
+    font-size: 2rem;    
+    margin-bottom: 1rem;
+}
+
+.settings-screen main {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.settings-screen main span {
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-bottom: .1rem solid var(--border-color);
+    padding: 1rem;
+    width: 100%;
+    max-width: 50rem;
+}
+
+.settings-screen main span:hover {
+    background-color: #ffffff22;
+}
+
+.settings-screen main span img {
+    margin: 0 .5rem 0 0;
+}
+
+.options-display {
+    display: none;
+}
+
+.profile-display {
+    display: none;
+    flex-direction: column;
+}
+
+.profile-display span {
+    font-size: 1.2rem;
+    border-radius: var(--radius);
+    padding: .4rem 2rem;
+    margin: 0 0 .5rem 0;
+    cursor: pointer;
+}
+
+.profile-display .select-profile {
+    border: .1rem solid var(--border-color);
+}
+
+.profile-display span img {
+    margin-right: .5rem;
+}
+
+.profile-display button {
+    font-size: 1rem;
+    padding: .5rem;
+    margin: 0 0 .5rem 0;
+}
+
+.data-display {
+    display: none;
+    flex-direction: column;
+}
+
+.data-display span, label {
+    text-align: center;
+    padding: .5rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+    border: .1rem solid var(--border-color);
+    font-size: 1.2rem;
+    border-radius: var(--radius);
+}
+
+.data-display span:hover, label:hover {
+    background-color: #ffffff22;
+}
+
+.data-display input {
+    display: none;
+}
+
+.delete-all-finaces {
+    color: #ff5757;
+}
+
+.theme-display {
+    display: none;
+    flex-direction: column;
+}
+
+.theme-display select {
+    cursor: pointer;
+    color: var(--text-color);
+    padding: .5rem;
+    border-radius: var(--radius);
+    background-color: transparent;
+    font-size: 1.2rem;
+    border: .1rem solid var(--border-color);
+}
+
+.language-display {
+    display: none;
+    flex-direction: column;
+}
+
+.language-display select {
+    cursor: pointer;
+    color: var(--text-color);
+    padding: .5rem;
+    border-radius: var(--radius);
+    background-color: transparent;
+    font-size: 1.2rem;
+    border: .1rem solid var(--border-color);
+    width: 10rem;
+}
+
+.about-display {
+    display: none;
+    flex-direction: column;
+}
+
+
+.about-display .app-name {
+    margin-top: 20rem;
+    text-align: center;
+    padding: .5 10rem;
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.about-display .context {
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+    margin-top: 1.5rem;
+}
+
+.about-display .legal-text {
+    max-width: 14rem;
+    text-align: justify;
+    font-size: .8rem;
+}
+
+/* CONFIRM */
+
+.confirm {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    background-color: var(--pg-color);
+    border-radius: var(--radius);
+    max-width: 30rem;
+}
+
+.confirm-btns-container {
+    display: flex;
+}
+
+.confirm-msg {
+    padding: 2rem;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.confirm-btns {
+    width: 50%;
+    background-color: var(--pg-color);
+    cursor: pointer;
+    padding: .8rem;
+    font-size: 1.1rem;
+    border: .1rem solid var(--border-color);
+    font-weight: bolder;
+}
+
+.cancel-confirmation-btn {
+    border-radius: 0 0 0 var(--radius);
+}
+
+.confirm-confirmation-btn {
+    border-radius: 0 0 var(--radius) 0;
+    color: #ff5757;
+}
+
 @media screen and (min-width: 800px) {
     footer {
         max-width: 50rem;
