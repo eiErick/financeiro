@@ -311,9 +311,11 @@ footer button {
 .profile-display {
     display: none;
     flex-direction: column;
+    width: 18rem;
 }
 
-.profile-display span {
+.profile-display .profiles {
+    position: relative;
     font-size: 1.2rem;
     border-radius: var(--radius);
     padding: .4rem 2rem;
@@ -333,6 +335,22 @@ footer button {
     font-size: 1rem;
     padding: .5rem;
     margin: 0 0 .5rem 0;
+}
+
+.delete-profile-btn {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    right: -.8rem;
+    top: 50%;
+    width: 1rem;
+    padding: .1rem 1rem .4rem 1rem;
+    border-radius: var(--radius);
+}
+
+.delete-profile-btn:hover {
+    background-color: var(--pg-color);
 }
 
 .data-display {

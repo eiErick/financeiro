@@ -49,6 +49,7 @@ const languageDisplay = document.querySelector('.language-display');
 const aboutSettingsBtn = document.querySelector('.about-settings-btn');
 const aboutDisplay = document.querySelector('.about-display');
 let profiles = document.querySelectorAll('.profiles');
+let deleteProfileBtn = document.querySelectorAll('.delete-profile-btn');
 const dataExportBtn = document.querySelector('.data-export');
 const deleteAllFinacesBtn = document.querySelector('.delete-all-finaces');
 
@@ -75,6 +76,7 @@ if (savedFinances) {
 
 if (!profileSelected && savedFinances) profileSelected = 1;
 if (profileSelected) for (let i = 0; i <= finances.profile.length; i++) finances.profile[i] === profileSelected ? profileSelected = i + 1 : '';
+if (typeof(profileSelected) != 'number') profileSelected = 1;
 
 if (selectedMonth.value != currentDate) {
     let isCurrentMonth = false;
@@ -87,6 +89,7 @@ if (savedFinances) {
 
     for (let i = 0; i <= finances.profile.length; i += 2) finances.profile[i] != undefined ? printProfile(finances.profile[i]) : '';
     profiles = document.querySelectorAll('.profiles');
+    deleteProfileBtn = document.querySelectorAll('.delete-profile-btn');
     profiles.forEach((e) => e.dataset.name === finances.profile[profileSelected - 1] ? e.classList.add('select-profile') : '');
 } else {
     headlePrompt();
@@ -220,6 +223,13 @@ profiles.forEach((e) => {
     });
 });
 
+deleteProfileBtn.forEach((e) => {
+    e.addEventListener('click', () => {
+        console.log(e.parentNode.dataset.profile);
+        deleteProfile(e.parentNode.dataset.profile);
+    });
+});
+
 dataSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, dataDisplay], 'flex');
     settingsScreenTitle.textContent = dataSettingsBtn.textContent;
@@ -345,7 +355,7 @@ function extractNumbers(inputString) {
 }
 
 function printProfile(name) {
-    profileDisplay.innerHTML += `<span class="profiles" data-profile="${name}"><img src="imgs/person.svg" alt="person icon">${name}</span>`;
+    profileDisplay.innerHTML += `<span class="profiles" data-profile="${name}"><img src="imgs/person.svg" alt="person icon">${name}<span class="delete-profile-btn">x</span></span>`;
 }
 
 async function createProfile() {
@@ -358,6 +368,13 @@ async function createProfile() {
     finances.profile.push(name, {});
 
     for (let i = 0; i <= finances.profile.length; i++) if (finances.profile[i] === name) selectedMonth.childNodes.forEach((e) => finances.profile[i+1][e.value] = []);
+
+    localStorage.setItem('savedFinances', JSON.stringify(finances));
+    location.reload();
+}
+
+async function deleteProfile(name) {
+    if (await confirm(`Do you really want to delete the "${name}" profile and all its data`)) for (let i = 0; i <= finances.profile.length-1; i++) if (finances.profile[i] === name) finances.profile.splice(i, 2);
 
     localStorage.setItem('savedFinances', JSON.stringify(finances));
     location.reload();
