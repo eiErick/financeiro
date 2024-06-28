@@ -202,6 +202,7 @@ profiles.forEach((e) => {
         });
 
         e.classList.add('select-profile');
+        changeProfile(e.dataset.profile);
         localStorage.setItem('profileSelected', e.dataset.profile);
     });
 });
@@ -218,7 +219,7 @@ dataExportBtn.addEventListener('click', () => {
 
 deleteAllFinacesBtn.addEventListener('click', () => {
     localStorage.clear();
-    window.location.reload();
+    location.reload();
 });
 
 themeSettingsBtn.addEventListener('click', () => {
@@ -347,7 +348,16 @@ function createProfile() {
     for (let i = 0; i <= finances.profile.length; i++) if (finances.profile[i] === name) selectedMonth.childNodes.forEach((e) => finances.profile[i+1][e.value] = []);
 
     localStorage.setItem('savedFinances', JSON.stringify(finances));
-    window.location.reload();
+    location.reload();
+}
+
+function changeProfile(name) {
+    profileSelected = name;
+    for (let i = 0; i <= finances.profile.length; i++) finances.profile[i] === profileSelected ? profileSelected = i + 1 : '';
+
+    clearDescription();
+    finances.profile[profileSelected][currentDate].forEach((e) => printDescription(e.title, e.value, e.type, e.id));
+    updateMonitor();
 }
 
 function dataDownloader() {
@@ -422,5 +432,5 @@ function deleteFinace(id) {
     for (let i = 0; i <= finances.profile[profileSelected][currentDate].length-1; i++) if (finances.profile[profileSelected][currentDate][i].id === id) finances.profile[profileSelected][currentDate].splice(i, 1);
 
     localStorage.setItem('savedFinances', JSON.stringify(finances));
-    window.location.reload();
+    location.reload();
 }
