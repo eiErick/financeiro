@@ -13,11 +13,11 @@ const expenseScreen = document.querySelector('.expense-screen');
 const inExScreen = document.querySelector('.in-ex-screen');
 const returnHomeBtn = document.querySelector('.in-ex-screen_return-home-btn');
 const inExScreenTitle = document.querySelector('.in-ex-screen_title');
+const inExScreenForm = document.querySelector('.in-ex-screen_form');
 const inExScreenSelectedMonth = document.querySelector('.in-ex-screen_selected-month');
 const descriptionInput = document.querySelector('.in-ex-screen_description-input');
 const valueInput = document.querySelector('.in-ex-screen_value-input');
 const inExScreenCancelBtn = document.querySelector('.in-ex-screen_cancel-btn');
-const inExScreenAddBtn = document.querySelector('.in-ex-screen_add-btn');
 
 const alertHTML = document.querySelector('.alert');
 const alertCloseBtn = document.querySelector('.alert-close-btn');
@@ -55,11 +55,11 @@ const deleteAllFinacesBtn = document.querySelector('.delete-all-finaces');
 const rmenu = document.querySelector('.rmenu');
 
 const editMenu = document.querySelector('.edit-menu');
+const editMenuForm = document.querySelector('.edit-menu_form');
 const editMenuSelectedMonth = document.querySelector('.edit-menu_selected-month');
 const editMenuDescriptionInput = document.querySelector('.edit-menu_description-input');
 const editMenuValueInput = document.querySelector('.edit-menu_value-input');
 const editMenuCancelBtn = document.querySelector('.edit-menu_cancel-btn');
-const editMenuAddBtn = document.querySelector('.edit-menu_add-btn');
 
 const date = new Date();
 const currentDate = `${getMonth()}-${getYear()}`;
@@ -93,7 +93,7 @@ if (savedFinances) {
     async function headlePrompt() {
         let name = await prompt('Say the name for your profile!');
         if (name === null) name = 'default';
-        
+
         finances.profile = [name, {}];
         selectedMonth.childNodes.forEach((e) => finances.profile[1][e.value] = []);
         localStorage.setItem('savedFinances', JSON.stringify(finances));
@@ -129,10 +129,10 @@ document.addEventListener('click', (e) => {
 
                         editMenuCancelBtn.addEventListener('click', () => editMenu.style.display = 'none');
 
-                        editMenuAddBtn.addEventListener('click', () => {
+                        editMenuForm.addEventListener('submit', (ev) => {
+                            ev.preventDefault();
                             const id = randomID();
 
-                            if (editMenuDescriptionInput.value === '' || editMenuValueInput.value === '') return;
                             if (selectedMonth.value === editMenuSelectedMonth.value) printDescription(editMenuDescriptionInput.value, editMenuValueInput.value, e.target.parentNode.dataset.type === 'income' ? 'income' : 'expense', id);
 
                             saveFinaceDescription(editMenuDescriptionInput.value, editMenuValueInput.value, e.target.parentNode.dataset.type === 'income' ? 'income' : 'expense', editMenuSelectedMonth.value, id);
@@ -173,10 +173,10 @@ selectedMonth.addEventListener('change', () => {
 returnHomeBtn.addEventListener('click', () => showScreen([home], 'flex'));
 inExScreenCancelBtn.addEventListener('click', () => showScreen([home], 'flex'));
 
-inExScreenAddBtn.addEventListener('click', () => {
+inExScreenForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     const id = randomID();
 
-    if (descriptionInput.value === '' || valueInput.value === '') return;
     if (selectedMonth.value === inExScreenSelectedMonth.value) printDescription(descriptionInput.value, valueInput.value, inExScreenTitle.dataset.type, id);
 
     saveFinaceDescription(descriptionInput.value, valueInput.value, inExScreenTitle.dataset.type, inExScreenSelectedMonth.value, id);
@@ -278,7 +278,6 @@ function clearDescription() {
 
 function saveFinaceDescription(title, value, type, month, id) {
     finances.profile[profileSelected][month].push({id: id, title: title, value: value, type: type});
-
     localStorage.setItem('savedFinances', JSON.stringify(finances));
 }
 

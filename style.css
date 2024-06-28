@@ -163,7 +163,7 @@ footer {
     display: flex;
     justify-content: space-between;
     position: fixed;
-    bottom: 0;
+    bottom: .5rem;
 }
 
 footer button {
@@ -204,19 +204,21 @@ footer button {
     font-size: 2rem;    
 }
 
-.in-ex-screen main {
+.in-ex-screen main form {
     position: absolute;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 50%;
-    transform: translateY(-50%);
+    height: 100vh;
+    transform: translate(-50%, -50%);
     top: 50%;
     width: 70%;
     max-width: 50rem;
     font-size: 1rem;
 }
 
-.in-ex-screen main select {
+.in-ex-screen main form select {
     height: 2rem;
     padding: 0 .5rem;
     font-size: 1rem;
@@ -227,7 +229,7 @@ footer button {
     margin: .5rem 0;
 }
 
-.in-ex-screen main input {
+.in-ex-screen main form input {
     height: 2rem;
     padding: 0 .5rem;
     font-size: 1rem;
@@ -238,12 +240,18 @@ footer button {
     margin: .5rem 0;
 }
 
-.in-ex-screen footer {
+.in-ex-screen main form .footer {
     width: 100%;
     height: 2rem;
     display: flex;
+    justify-content: space-between;
     position: fixed;
-    bottom: 0;
+    bottom: .5rem;
+}
+
+.in-ex-screen main form .footer button {
+    width: 48%;
+    font-size: 1rem;
 }
 
 /* SETTINGS */
@@ -589,7 +597,7 @@ footer button {
     margin: .5rem 0;
 }
 
-.edit-menu input {
+.edit-menu_form input {
     width: 16rem;
     height: 2rem;
     padding: 0 .5rem;
@@ -601,7 +609,7 @@ footer button {
     margin: .5rem 0;
 }
 
-.edit-menu div {
+.edit-menu_form div {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
@@ -609,7 +617,7 @@ footer button {
     bottom: .5rem;
 }
 
-.edit-menu div button {
+.edit-menu_form div button {
     width: 8rem;
     font-size: 1rem;
 }

@@ -36,17 +36,19 @@
             <p class="in-ex-screen_title"></p>
         </header>
         <main>
-            <label for="in-ex-screen_selected-month" class="context">Month:</label>
-            <select class="in-ex-screen_selected-month" id="in-ex-screen_selected-month"></select>
-            <label for="in-ex-screen_description-input" class="context">Title:</label >
-            <input placeholder="Title..." type="text" class="in-ex-screen_description-input" id="in-ex-screen_description-input">
-            <label for="in-ex-screen_value-input" class="context">Value:</label>
-            <input placeholder="Value..." type="number" class="in-ex-screen_value-input" id="in-ex-screen_value-input">
+            <form class="in-ex-screen_form">
+                <label for="in-ex-screen_selected-month" class="context">Month:</label>
+                <select class="in-ex-screen_selected-month" id="in-ex-screen_selected-month" required></select>
+                <label for="in-ex-screen_description-input" class="context">Title:</label >
+                <input placeholder="Title..." type="text" class="in-ex-screen_description-input" id="in-ex-screen_description-input" required>
+                <label for="in-ex-screen_value-input" class="context">Value:</label>
+                <input placeholder="Value..." type="number" class="in-ex-screen_value-input" id="in-ex-screen_value-input" required>
+                <div class="footer">
+                    <button type="submit" class="in-ex-screen_cancel-btn btns">Cancel</button>
+                    <button class="in-ex-screen_add-btn btns">Add</button>
+                </div>
+            </form>
         </main>
-        <footer>
-            <button class="in-ex-screen_cancel-btn btns">Cancel</button>
-            <button class="in-ex-screen_add-btn btns">Add</button>
-        </footer>
     </div>
 
     <div class="settings-screen">
@@ -147,16 +149,18 @@
 
     <div class="edit-menu">
         <p class="edit-menu_title">Edit</p>
-        <label for="edit-menu_selected-month" class="context">Month:</label>
-        <select class="edit-menu_selected-month" id="edit-menu_selected-month"></select>
-        <label for="edit-menu_description-input" class="context">Title:</label>
-        <input type="text" class="edit-menu_description-input" id="edit-menu_description-input">
-        <label for="edit-menu_value-input" class="context">Value:</label>
-        <input type="number" class="edit-menu_value-input" id="edit-menu_value-input">
-        <div>
-            <button class="edit-menu_cancel-btn btns">Cancel</button>
-            <button class="edit-menu_add-btn btns">Edit</button>
-        </div>
+        <form class="edit-menu_form">
+            <label for="edit-menu_selected-month" class="context">Month:</label>
+            <select class="edit-menu_selected-month" id="edit-menu_selected-month" required></select>
+            <label for="edit-menu_description-input" class="context">Title:</label>
+            <input type="text" class="edit-menu_description-input" id="edit-menu_description-input" required>
+            <label for="edit-menu_value-input" class="context">Value:</label>
+            <input type="number" class="edit-menu_value-input" id="edit-menu_value-input" required>
+            <div>
+                <button type="submit" class="edit-menu_cancel-btn btns">Cancel</button>
+                <button class="edit-menu_add-btn btns">Edit</button>
+            </div>
+        </form>
     </div>
 
     <script src="theme.js"></script>
