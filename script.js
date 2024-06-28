@@ -27,6 +27,12 @@ const confirmMsg = document.querySelector('.confirm-msg');
 const cancelConfirmationBtn = document.querySelector('.cancel-confirmation-btn');
 const confirmConfirmationBtn = document.querySelector('.confirm-confirmation-btn');
 
+const promptHtml = document.querySelector('.prompt');
+const promptMsg = document.querySelector('.prompt_msg');
+const promptInp = document.querySelector('.prompt_inp');
+const cancelPromptBtn = document.querySelector('.cancel-prompt-btn');
+const confirmPromptBtn = document.querySelector('.confirm-prompt-btn');
+
 const settingsScreen = document.querySelector('.settings-screen');
 const settingsScreenReturnHomeBtn = document.querySelector('.settings-screen_return-home-btn');
 const settingsScreenTitle = document.querySelector('.settings-screen_title');
@@ -83,11 +89,15 @@ if (savedFinances) {
     profiles = document.querySelectorAll('.profiles');
     profiles.forEach((e) => e.dataset.name === finances.profile[profileSelected - 1] ? e.classList.add('select-profile') : '');
 } else {
-    const name = window.prompt('Say the name for your profile!');
-    finances.profile = [name, {}];
-
-    selectedMonth.childNodes.forEach((e) => finances.profile[1][e.value] = []);
-    localStorage.setItem('savedFinances', JSON.stringify(finances));
+    headlePrompt();
+    async function headlePrompt() {
+        let name = await prompt('Say the name for your profile!');
+        if (name === null) name = 'default';
+        
+        finances.profile = [name, {}];
+        selectedMonth.childNodes.forEach((e) => finances.profile[1][e.value] = []);
+        localStorage.setItem('savedFinances', JSON.stringify(finances));
+    }
 }
 
 document.addEventListener('click', (e) => {
@@ -339,8 +349,8 @@ function printProfile(name) {
     profileDisplay.innerHTML += `<span class="profiles" data-profile="${name}"><img src="imgs/person.svg" alt="person icon">${name}</span>`;
 }
 
-function createProfile() {
-    const name = window.prompt('Say the name for your new profile');
+async function createProfile() {
+    const name = await prompt('Say the name for your new profile');
     if (name === null) return;
 
     for (let i = 0; i <= finances.profile.length; i += 2) if (finances.profile[i] === name) return;
@@ -387,7 +397,7 @@ function dataImport() {
 					const getterData = JSON.parse(content.target.result);
 					jsonData = getterData;
 				} catch (error) {
-					alert('warning', 'Error parsing JSON file!');
+					alert('Error parsing JSON file!');
 				}
 
 				if (jsonData != undefined) {
@@ -408,7 +418,6 @@ function dataImport() {
 
 function alert(msg) {
     alertHTML.childNodes[3].childNodes[3].textContent = msg;
-
     alertHTML.style.display = 'flex';
     alertCloseBtn.addEventListener('click', () => alertHTML.style.display = 'none');
     setTimeout(() => alertHTML.style.display = 'none', 5000);
@@ -427,6 +436,25 @@ async function confirm(msg) {
         cancelConfirmationBtn.addEventListener('click', () => {
             confirmHtml.style.display = 'none';
             r(false);
+        }, { once: true });
+    });
+}
+
+async function prompt(msg) {
+    promptMsg.textContent = msg;
+    promptHtml.style.display = 'flex';
+
+    return new Promise((r) => {
+        confirmPromptBtn.addEventListener('click', () => {
+            promptHtml.style.display = 'none';
+            r(promptInp.value);
+            promptInp.value = '';
+        }, { once: true });
+        
+        cancelPromptBtn.addEventListener('click', () => {
+            promptHtml.style.display = 'none';
+            promptInp.value = '';
+            r(null);
         }, { once: true });
     });
 }
