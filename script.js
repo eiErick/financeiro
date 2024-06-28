@@ -7,7 +7,6 @@ const monitorBalance = document.querySelector('.monitor_balance');
 const descriptionContainer = document.querySelector('.description-container');
 const addIncomeBtn = document.querySelector('.add-income-btn');
 const addExpenseBtn = document.querySelector('.add-expense-btn');
-
 const icomeScreen = document.querySelector('.income-screen');
 const expenseScreen = document.querySelector('.expense-screen');
 
@@ -44,6 +43,15 @@ let profiles = document.querySelectorAll('.profiles');
 const dataExportBtn = document.querySelector('.data-export');
 const deleteAllFinacesBtn = document.querySelector('.delete-all-finaces');
 
+const rmenu = document.querySelector('.rmenu');
+
+const editMenu = document.querySelector('.edit-menu');
+const editMenuSelectedMonth = document.querySelector('.edit-menu_selected-month');
+const editMenuDescriptionInput = document.querySelector('.edit-menu_description-input');
+const editMenuValueInput = document.querySelector('.edit-menu_value-input');
+const editMenuCancelBtn = document.querySelector('.edit-menu_cancel-btn');
+const editMenuAddBtn = document.querySelector('.edit-menu_add-btn');
+
 const date = new Date();
 const currentDate = `${getMonth()}-${getYear()}`;
 
@@ -68,7 +76,7 @@ if (selectedMonth.value != currentDate) {
 } else selectedMonth.value = currentDate;
 
 if (savedFinances) {
-    finances.profile[profileSelected][currentDate].forEach((e) => printDescription(e.title, e.value, e.type));
+    finances.profile[profileSelected][currentDate].forEach((e) => printDescription(e.title, e.value, e.type, e.id));
 
     for (let i = 0; i <= finances.profile.length; i += 2) finances.profile[i] != undefined ? printProfile(finances.profile[i]) : '';
     profiles = document.querySelectorAll('.profiles');
@@ -80,6 +88,53 @@ if (savedFinances) {
     selectedMonth.childNodes.forEach((e) => finances.profile[1][e.value] = []);
     localStorage.setItem('savedFinances', JSON.stringify(finances));
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList[0] === 'description_menu') {
+        e.target.style.background = '#500000';
+        e.target.parentNode.classList[0] === 'note' ? e.target.parentNode.style.background = '#500000' : '';
+
+        printRmenu(e.clientX-170, e.clientY, [{title: 'Delete', context: 'delete'}, {title: 'Edit', context: 'edit'}]);
+
+        let isToDo = true;        
+        document.addEventListener('click', () => {
+            if (isToDo) {
+                e.target.style.background = '';
+                isToDo = false;     
+                rmenu.style.display = 'none';
+            }
+        });
+
+        rmenu.childNodes.forEach((o) => {
+            o.addEventListener('click', () => {
+                if (isToDo) {
+                    if (o.dataset.context === 'delete') deleteFinace(e.target.parentNode.dataset.id);
+
+                    if (o.dataset.context === 'edit') {
+                        editMenu.style.display = 'flex';
+                        editMenuSelectedMonth.value = selectedMonth.value;
+                        editMenuDescriptionInput.value = e.target.parentNode.childNodes[1].textContent;
+                        editMenuValueInput.value = e.target.parentNode.childNodes[2].childNodes[0].childNodes[1].textContent;
+
+                        editMenuCancelBtn.addEventListener('click', () => editMenu.style.display = 'none');
+
+                        editMenuAddBtn.addEventListener('click', () => {
+                            const id = randomID();
+
+                            if (editMenuDescriptionInput.value === '' || editMenuValueInput.value === '') return;
+                            if (selectedMonth.value === editMenuSelectedMonth.value) printDescription(editMenuDescriptionInput.value, editMenuValueInput.value, e.target.parentNode.dataset.type === 'income' ? 'income' : 'expense', id);
+                            
+                            saveFinaceDescription(editMenuDescriptionInput.value, editMenuValueInput.value, e.target.parentNode.dataset.type === 'income' ? 'income' : 'expense', editMenuSelectedMonth.value, id);
+                            deleteFinace(e.target.parentNode.dataset.id);
+
+                            editMenu.style.display = 'none';
+                        });
+                    }
+                }
+            });
+        });
+    }
+});
 
 addIncomeBtn.addEventListener('click', () => {
     showScreen([inExScreen], 'flex');
@@ -95,7 +150,7 @@ selectedMonth.addEventListener('change', () => {
     clearDescription();
 
     if (finances.profile[profileSelected][selectedMonth.value]) {
-        finances.profile[profileSelected][selectedMonth.value].forEach((e) => printDescription(e.title, e.value, e.type));
+        finances.profile[profileSelected][selectedMonth.value].forEach((e) => printDescription(e.title, e.value, e.type, e.id));
     } else {
         finances.profile[profileSelected][selectedMonth.value] = [];
         localStorage.setItem('savedFinances', JSON.stringify(finances));
@@ -106,10 +161,12 @@ returnHomeBtn.addEventListener('click', () => showScreen([home], 'flex'));
 inExScreenCancelBtn.addEventListener('click', () => showScreen([home], 'flex'));
 
 inExScreenAddBtn.addEventListener('click', () => {
-    if (descriptionInput.value === '' || valueInput.value === '') return;
-    if (selectedMonth.value === inExScreenSelectedMonth.value) printDescription(descriptionInput.value, valueInput.value, inExScreenTitle.textContent.toLowerCase());
+    const id = randomID();
 
-    saveFinaceDescription(descriptionInput.value, valueInput.value, inExScreenTitle.textContent.toLowerCase(), inExScreenSelectedMonth.value);
+    if (descriptionInput.value === '' || valueInput.value === '') return;
+    if (selectedMonth.value === inExScreenSelectedMonth.value) printDescription(descriptionInput.value, valueInput.value, inExScreenTitle.textContent.toLowerCase(), id);
+
+    saveFinaceDescription(descriptionInput.value, valueInput.value, inExScreenTitle.textContent.toLowerCase(), inExScreenSelectedMonth.value, id);
 
     descriptionInput.value = '';
     valueInput.value = '';
@@ -190,8 +247,9 @@ function showScreen(element, show) {
     element.forEach((e) => e.style.display = show);
 }
 
-function printDescription(title, value, type) {
-    descriptionContainer.innerHTML += `<div class="description"><span class="description_icon"><img src="imgs/coin.svg" alt="coin"></span><p class="description_title">${title}</p><span class="description_value"><span class="description_value-type">${type === 'income' ? '+' : '-'} <span>${value}</span><span>$</span></div>`;
+function printDescription(title, value, type, id) {
+    descriptionContainer.innerHTML += `
+    <div class="description" data-type="${type}" data-id="${id}"><span class="description_icon"><img src="imgs/coin.svg" alt="coin"></span><p class="description_title">${title}</p><span class="description_value"><span class="description_value-type">${type === 'income' ? '+' : '-'} <span>${value}</span><span>$</span><p class="description_title"></p></span></span><span class="description_menu">...</span></div>`;
     updateMonitor();
 }
 
@@ -199,8 +257,8 @@ function clearDescription() {
     descriptionContainer.innerHTML = '';
 }
 
-function saveFinaceDescription(title, value, type, month) {
-    finances.profile[profileSelected][month].push({id: `${randomID()}`,title: title, value: value, type: type});
+function saveFinaceDescription(title, value, type, month, id) {
+    finances.profile[profileSelected][month].push({id: id, title: title, value: value, type: type});
 
     localStorage.setItem('savedFinances', JSON.stringify(finances));
 }
@@ -251,8 +309,10 @@ function createOptionMonth(month, year) {
     
     selectedMonth.innerHTML += optionTemplate;
     inExScreenSelectedMonth.innerHTML += optionTemplate;
+    editMenuSelectedMonth.innerHTML += optionTemplate;
     inExScreenSelectedMonth.value = `${month}-${year}`;
     selectedMonth.value = `${month}-${year}`;
+    editMenuSelectedMonth.value = `${month}-${year}`;
 }
 
 function capitalizeFirstLetter(text) {
@@ -345,4 +405,19 @@ async function confirm(msg) {
             r(false);
         }, { once: true });
     });  
+}
+
+function printRmenu(x, y, elements) {
+    rmenu.style.display = 'flex';
+    rmenu.style.top = `${y}px`;
+    rmenu.style.left = `${x}px`;
+    rmenu.innerHTML = '';
+    elements.forEach((e) => rmenu.innerHTML += `<span data-context='${e.context}' class="rmenu_option">${e.title}</span>`);
+}
+
+function deleteFinace(id) {
+    for (let i = 0; i <= finances.profile[profileSelected][currentDate].length-1; i++) if (finances.profile[profileSelected][currentDate][i].id === id) finances.profile[profileSelected][currentDate].splice(i, 1);
+    
+    localStorage.setItem('savedFinances', JSON.stringify(finances));
+    window.location.reload();
 }
