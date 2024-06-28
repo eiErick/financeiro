@@ -19,6 +19,9 @@ const valueInput = document.querySelector('.in-ex-screen_value-input');
 const inExScreenCancelBtn = document.querySelector('.in-ex-screen_cancel-btn');
 const inExScreenAddBtn = document.querySelector('.in-ex-screen_add-btn');
 
+const alertHTML = document.querySelector('.alert');
+const alertCloseBtn = document.querySelector('.alert-close-btn');
+
 const confirmHtml = document.querySelector('.confirm');
 const confirmMsg = document.querySelector('.confirm-msg');
 const cancelConfirmationBtn = document.querySelector('.cancel-confirmation-btn');
@@ -401,6 +404,14 @@ function dataImport() {
 			reader.readAsText(file);
 		}
 	});
+}
+
+function alert(msg) {
+    alertHTML.childNodes[3].childNodes[3].textContent = msg;
+
+    alertHTML.style.display = 'flex';
+    alertCloseBtn.addEventListener('click', () => alertHTML.style.display = 'none');
+    setTimeout(() => alertHTML.style.display = 'none', 5000);
 }
 
 async function confirm(msg) {

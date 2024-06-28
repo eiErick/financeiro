@@ -412,6 +412,41 @@ footer button {
     font-size: .8rem;
 }
 
+/* ALERT */
+
+.alert {
+    display: none;
+    align-items: center;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    top: .5rem;
+    left: 50%;
+    background-color: var(--yellow-800);
+    width: 90%;
+    max-width: 40rem;
+    padding: .5rem 1.5rem;  
+    border-radius: var(--radius);
+}
+
+.alert img {
+    width: 2rem;
+    margin-right: 1.5rem;
+}
+
+.alert .alert-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.alert .alert-close-btn {
+    position: absolute;
+    right: 1.5rem;
+    cursor: pointer;
+    padding: .2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 /* CONFIRM */
 
 .confirm {
