@@ -111,6 +111,7 @@ body {
     border-radius: var(--radius);
     text-align: center;
     font-size: 1.1rem;
+    border: .1rem solid var(--border-color);
 }
 
 .description {
@@ -120,6 +121,7 @@ body {
     align-items: center;
     margin: .5rem;
     background-color: var(--pg-color);
+    border: .1rem solid var(--border-color);
     border-radius: var(--radius);
 }
 
