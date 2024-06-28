@@ -65,9 +65,7 @@ if (savedFinances) {
 }
 
 if (!profileSelected && savedFinances) profileSelected = 1;
-if (profileSelected) {
-    for (let i = 0; i <= finances.profile.length; i++) finances.profile[i] === profileSelected ? profileSelected = i + 1 : '';
-}
+if (profileSelected) for (let i = 0; i <= finances.profile.length; i++) finances.profile[i] === profileSelected ? profileSelected = i + 1 : '';
 
 if (selectedMonth.value != currentDate) {
     let isCurrentMonth = false;
@@ -80,7 +78,7 @@ if (savedFinances) {
 
     for (let i = 0; i <= finances.profile.length; i += 2) finances.profile[i] != undefined ? printProfile(finances.profile[i]) : '';
     profiles = document.querySelectorAll('.profiles');
-    profiles.forEach((e) => e.textContent === finances.profile[profileSelected - 1] ? e.classList.add('select-profile') : '');
+    profiles.forEach((e) => e.dataset.name === finances.profile[profileSelected - 1] ? e.classList.add('select-profile') : '');
 } else {
     const name = window.prompt('Say the name for your profile!');
     finances.profile = [name, {}];
@@ -96,11 +94,11 @@ document.addEventListener('click', (e) => {
 
         printRmenu(e.clientX-170, e.clientY, [{title: 'Delete', context: 'delete'}, {title: 'Edit', context: 'edit'}]);
 
-        let isToDo = true;        
+        let isToDo = true;
         document.addEventListener('click', () => {
             if (isToDo) {
                 e.target.style.background = '';
-                isToDo = false;     
+                isToDo = false;
                 rmenu.style.display = 'none';
             }
         });
@@ -123,7 +121,7 @@ document.addEventListener('click', (e) => {
 
                             if (editMenuDescriptionInput.value === '' || editMenuValueInput.value === '') return;
                             if (selectedMonth.value === editMenuSelectedMonth.value) printDescription(editMenuDescriptionInput.value, editMenuValueInput.value, e.target.parentNode.dataset.type === 'income' ? 'income' : 'expense', id);
-                            
+
                             saveFinaceDescription(editMenuDescriptionInput.value, editMenuValueInput.value, e.target.parentNode.dataset.type === 'income' ? 'income' : 'expense', editMenuSelectedMonth.value, id);
                             deleteFinace(e.target.parentNode.dataset.id);
 
@@ -139,11 +137,13 @@ document.addEventListener('click', (e) => {
 addIncomeBtn.addEventListener('click', () => {
     showScreen([inExScreen], 'flex');
     inExScreenTitle.textContent = 'Income';
+    inExScreenTitle.dataset.type = 'income';
 });
 
 addExpenseBtn.addEventListener('click', () => {
     showScreen([inExScreen], 'flex');
     inExScreenTitle.textContent = 'Expense';
+    inExScreenTitle.dataset.type = 'expense';
 });
 
 selectedMonth.addEventListener('change', () => {
@@ -164,9 +164,9 @@ inExScreenAddBtn.addEventListener('click', () => {
     const id = randomID();
 
     if (descriptionInput.value === '' || valueInput.value === '') return;
-    if (selectedMonth.value === inExScreenSelectedMonth.value) printDescription(descriptionInput.value, valueInput.value, inExScreenTitle.textContent.toLowerCase(), id);
+    if (selectedMonth.value === inExScreenSelectedMonth.value) printDescription(descriptionInput.value, valueInput.value, inExScreenTitle.dataset.type, id);
 
-    saveFinaceDescription(descriptionInput.value, valueInput.value, inExScreenTitle.textContent.toLowerCase(), inExScreenSelectedMonth.value, id);
+    saveFinaceDescription(descriptionInput.value, valueInput.value, inExScreenTitle.dataset.type, inExScreenSelectedMonth.value, id);
 
     descriptionInput.value = '';
     valueInput.value = '';
@@ -179,9 +179,9 @@ settingsBtn.addEventListener('click', () => {
 });
 
 settingsScreenReturnHomeBtn.addEventListener('click', () => {
-    if (settingsScreenTitle.textContent != 'Settings') {
+    if (settingsScreenTitle.dataset.menu != 'settings') {
         showScreen([settingsScreen, containerOptions], 'flex');
-        settingsScreenTitle.textContent = 'Settings';
+        settingsScreenTitle.dataset.menu = 'settings';
     } else showScreen([home], 'flex');
 });
 
@@ -192,6 +192,7 @@ document.querySelector('.add-profile-btn').addEventListener('click', () => {
 profileSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, profileDisplay], 'flex');
     settingsScreenTitle.textContent = profileSettingsBtn.textContent;
+    settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
 profiles.forEach((e) => {
@@ -201,13 +202,14 @@ profiles.forEach((e) => {
         });
 
         e.classList.add('select-profile');
-        localStorage.setItem('profileSelected', e.textContent);
+        localStorage.setItem('profileSelected', e.dataset.profile);
     });
 });
 
 dataSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, dataDisplay], 'flex');
     settingsScreenTitle.textContent = dataSettingsBtn.textContent;
+    settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
 dataExportBtn.addEventListener('click', () => {
@@ -222,16 +224,19 @@ deleteAllFinacesBtn.addEventListener('click', () => {
 themeSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, themeDisplay], 'flex');
     settingsScreenTitle.textContent = themeSettingsBtn.textContent;
+    settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
 languageSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, languageDisplay], 'flex');
     settingsScreenTitle.textContent = languageSettingsBtn.textContent;
+    settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
 aboutSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, aboutDisplay], 'flex');
     settingsScreenTitle.textContent = aboutSettingsBtn.textContent;
+    settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
 function showScreen(element, show) {
@@ -272,18 +277,16 @@ function updateMonitor() {
 function getIncome() {
     let income = 0;
     description = document.querySelectorAll('.description_value').forEach((e) => {
-        if (e.childNodes[0].childNodes[0].textContent === '+ ') income += parseInt(e.childNodes[0].childNodes[1].textContent);
+        if (e.parentNode.dataset.type === 'income') income += parseInt(e.childNodes[0].childNodes[1].textContent);
     });
-
     return income;
 }
 
 function getExpense() {
     let expense = 0;
     description = document.querySelectorAll('.description_value').forEach((e) => {
-        if (e.childNodes[0].childNodes[0].textContent === '- ') expense += parseInt(e.childNodes[0].childNodes[1].textContent);
+        if (e.parentNode.dataset.type === 'expense') expense += parseInt(e.childNodes[0].childNodes[1].textContent);
     });
-
     return expense;
 }
 
@@ -306,7 +309,7 @@ function getNameMonth(num) {
 
 function createOptionMonth(month, year) {
     const optionTemplate = `<option value="${month}-${year}">${capitalizeFirstLetter(getNameMonth(month))} ${year}</option>`;
-    
+
     selectedMonth.innerHTML += optionTemplate;
     inExScreenSelectedMonth.innerHTML += optionTemplate;
     editMenuSelectedMonth.innerHTML += optionTemplate;
@@ -329,7 +332,7 @@ function extractNumbers(inputString) {
 }
 
 function printProfile(name) {
-    profileDisplay.innerHTML += `<span class="profiles"><img src="imgs/person.svg" alt="person icon">${name}</span>`;
+    profileDisplay.innerHTML += `<span class="profiles" data-profile="${name}"><img src="imgs/person.svg" alt="person icon">${name}</span>`;
 }
 
 function createProfile() {
@@ -404,7 +407,7 @@ async function confirm(msg) {
             confirmHtml.style.display = 'none';
             r(false);
         }, { once: true });
-    });  
+    });
 }
 
 function printRmenu(x, y, elements) {
@@ -417,7 +420,7 @@ function printRmenu(x, y, elements) {
 
 function deleteFinace(id) {
     for (let i = 0; i <= finances.profile[profileSelected][currentDate].length-1; i++) if (finances.profile[profileSelected][currentDate][i].id === id) finances.profile[profileSelected][currentDate].splice(i, 1);
-    
+
     localStorage.setItem('savedFinances', JSON.stringify(finances));
     window.location.reload();
 }
