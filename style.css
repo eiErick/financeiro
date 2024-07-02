@@ -4,7 +4,6 @@
     --primary-color-hover: #72A9EC;
     --radius: .4rem;
     --transition: .3s;
-    --yellow-50: #fefce8;
     --yellow-100: #fef9c3;
     --yellow-200: #fef9c3;
     --yellow-300: #fde047;
@@ -14,7 +13,15 @@
     --yellow-700: #ca8a04;
     --yellow-800: #854d0e;
     --yellow-900: #713f12;
-    --yellow-950: #422006;
+    --blue-100: #dceffd;
+    --blue-200: #c2e3fb;
+    --blue-300: #97d3f9;
+    --blue-400: #66baf4;
+    --blue-500: #439cee;
+    --blue-600: #3584e4;
+    --blue-700: #256ad0;
+    --blue-800: #2455a9;
+    --blue-900: #224a86;
 }
 
 .dark {
@@ -23,6 +30,9 @@
     --pg-color: #303030;
     --text-color: #ffffff;
     --shadow-color:#ffffff26;
+    --yellow-monitor: var(--yellow-800);
+    --primary-color: var(--blue-600);
+    --primary-color-hover: var(--blue-400);
 }
 
 .light {
@@ -31,6 +41,9 @@
     --pg-color: #ebebeb;
     --text-color: #000000;
     --shadow-color:#00000026;
+    --yellow-monitor: var(--yellow-400);
+    --primary-color: var(--blue-500);
+    --primary-color-hover: var(--blue-400);
 }
 
 * {
@@ -83,6 +96,7 @@ body {
     color: #000;
     background-color: #fff;
     border-radius: var(--radius);
+    border: .1rem solid var(--border-color);
     cursor: pointer;
     margin: 0 0 0 .5rem;
 }
@@ -104,15 +118,18 @@ body {
 .monitor {
     display: flex;
     margin: 1rem .5rem;
-    background-color: var(--yellow-800);
+    background-color: var(--yellow-monitor);
     height: 4rem;
     align-items: center;
     justify-content: space-evenly;
     border-radius: var(--radius);
     text-align: center;
     font-size: 1.1rem;
-    border: .1rem solid var(--border-color);
 }
+/* 
+.monitor div {
+    color: #fff;
+} */
 
 .description {
     height: 2rem;
@@ -121,7 +138,6 @@ body {
     align-items: center;
     margin: .5rem;
     background-color: var(--pg-color);
-    border: .1rem solid var(--border-color);
     border-radius: var(--radius);
 }
 
@@ -198,6 +214,7 @@ footer button {
 
 .in-ex-screen_return-home-btn img {
     height: 39px;
+    fill: #224a86;
 }
 
 .in-ex-screen_title {
@@ -218,7 +235,7 @@ footer button {
     font-size: 1rem;
 }
 
-.in-ex-screen main form select {
+.in-ex-screen main form select, .in-ex-screen main form input  {
     height: 2rem;
     padding: 0 .5rem;
     font-size: 1rem;
@@ -227,17 +244,7 @@ footer button {
     border-radius: var(--radius);
     cursor: pointer;
     margin: .5rem 0;
-}
-
-.in-ex-screen main form input {
-    height: 2rem;
-    padding: 0 .5rem;
-    font-size: 1rem;
-    color: #000;
-    background-color: #fff;
-    border-radius: var(--radius);
-    cursor: pointer;
-    margin: .5rem 0;
+    border: .1rem solid var(--border-color);
 }
 
 .in-ex-screen main form .footer {
