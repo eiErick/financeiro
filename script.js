@@ -85,6 +85,8 @@ if (selectedMonth.value != currentDate) {
 } else selectedMonth.value = currentDate;
 
 if (savedFinances) {
+    if (finances.profile[profileSelected][currentDate] === undefined) finances.profile[profileSelected][currentDate] = [];
+    
     finances.profile[profileSelected][currentDate].forEach((e) => printDescription(e.title, e.value, e.type, e.id));
 
     for (let i = 0; i <= finances.profile.length; i += 2) finances.profile[i] != undefined ? printProfile(finances.profile[i]) : '';
