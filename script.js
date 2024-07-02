@@ -1,3 +1,5 @@
+const htmlDocument = document.documentElement;
+
 const home = document.querySelector('.home');
 const selectedMonth = document.querySelector('.selected-month');
 const settingsBtn = document.querySelector('.settings-btn');
@@ -52,6 +54,7 @@ let profiles = document.querySelectorAll('.profiles');
 let deleteProfileBtn = document.querySelectorAll('.delete-profile-btn');
 const dataExportBtn = document.querySelector('.data-export');
 const deleteAllFinacesBtn = document.querySelector('.delete-all-finaces');
+const stylMenu = document.querySelector('.style-menu');
 
 const rmenu = document.querySelector('.rmenu');
 
@@ -66,7 +69,10 @@ const date = new Date();
 const currentDate = `${getMonth()}-${getYear()}`;
 
 let finances = {};
+let theme;
+
 const savedFinances = localStorage.getItem('savedFinances');
+const finacesTheme = localStorage.getItem('finacesTheme');
 let profileSelected = localStorage.getItem('profileSelected');
 
 if (savedFinances) {
@@ -86,7 +92,7 @@ if (selectedMonth.value != currentDate) {
 
 if (savedFinances) {
     if (finances.profile[profileSelected][currentDate] === undefined) finances.profile[profileSelected][currentDate] = [];
-    
+
     finances.profile[profileSelected][currentDate].forEach((e) => printDescription(e.title, e.value, e.type, e.id));
 
     for (let i = 0; i <= finances.profile.length; i += 2) finances.profile[i] != undefined ? printProfile(finances.profile[i]) : '';
@@ -103,6 +109,15 @@ if (savedFinances) {
         selectedMonth.childNodes.forEach((e) => finances.profile[1][e.value] = []);
         localStorage.setItem('savedFinances', JSON.stringify(finances));
     }
+}
+
+if (finacesTheme) {
+    theme = finacesTheme;
+    htmlDocument.classList.toggle(theme);
+} else {
+    theme = 'system';
+    htmlDocument.classList.toggle(theme);
+    localStorage.setItem('finacesTheme', theme);
 }
 
 document.addEventListener('click', (e) => {
@@ -251,6 +266,11 @@ themeSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, themeDisplay], 'flex');
     settingsScreenTitle.textContent = themeSettingsBtn.textContent;
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
+});
+
+stylMenu.addEventListener('change', () => {
+    localStorage.setItem('finacesTheme', stylMenu.value);
+    location.reload();
 });
 
 languageSettingsBtn.addEventListener('click', () => {
