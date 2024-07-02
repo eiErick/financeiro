@@ -195,9 +195,7 @@ inExScreenForm.addEventListener('submit', (e) => {
     showScreen([home], 'flex');
 });
 
-settingsBtn.addEventListener('click', () => {
-    showScreen([settingsScreen, containerOptions], 'flex');
-});
+settingsBtn.addEventListener('click', () => showScreen([settingsScreen, containerOptions], 'flex'));
 
 settingsScreenReturnHomeBtn.addEventListener('click', () => {
     if (settingsScreenTitle.dataset.menu != 'settings') {
@@ -207,9 +205,7 @@ settingsScreenReturnHomeBtn.addEventListener('click', () => {
     } else showScreen([home], 'flex');
 });
 
-document.querySelector('.add-profile-btn').addEventListener('click', () => {
-    createProfile();
-});
+document.querySelector('.add-profile-btn').addEventListener('click', () => createProfile());
 
 profileSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, profileDisplay], 'flex');
@@ -242,9 +238,7 @@ dataSettingsBtn.addEventListener('click', () => {
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
-dataExportBtn.addEventListener('click', () => {
-    dataDownloader();
-});
+dataExportBtn.addEventListener('click', () => dataDownloader());
 
 deleteAllFinacesBtn.addEventListener('click', () => {
     localStorage.clear();
