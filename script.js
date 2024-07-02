@@ -203,6 +203,7 @@ settingsScreenReturnHomeBtn.addEventListener('click', () => {
     if (settingsScreenTitle.dataset.menu != 'settings') {
         showScreen([settingsScreen, containerOptions], 'flex');
         settingsScreenTitle.dataset.menu = 'settings';
+        settingsScreenTitle.textContent = 'Settings';
     } else showScreen([home], 'flex');
 });
 
