@@ -1,5 +1,3 @@
-const htmlDocument = document.documentElement;
-
 const home = document.querySelector('.home');
 const selectedMonth = document.querySelector('.selected-month');
 const settingsBtn = document.querySelector('.settings-btn');
@@ -69,10 +67,7 @@ const date = new Date();
 const currentDate = `${getMonth()}-${getYear()}`;
 
 let finances = {};
-let theme;
-
 const savedFinances = localStorage.getItem('savedFinances');
-const finacesTheme = localStorage.getItem('finacesTheme');
 let profileSelected = localStorage.getItem('profileSelected');
 
 if (savedFinances) {
@@ -111,14 +106,7 @@ if (savedFinances) {
     }
 }
 
-if (finacesTheme) {
-    theme = finacesTheme;
-    htmlDocument.classList.toggle(theme);
-} else {
-    theme = 'system';
-    htmlDocument.classList.toggle(theme);
-    localStorage.setItem('finacesTheme', theme);
-}
+loadTheme();
 
 document.addEventListener('click', (e) => {
     if (e.target.classList[0] === 'description_menu') {
@@ -510,4 +498,13 @@ function deleteFinace(id) {
 
     localStorage.setItem('savedFinances', JSON.stringify(finances));
     location.reload();
+}
+
+function loadTheme() {
+    let theme = localStorage.getItem('finacesTheme');
+    if (!theme) {
+        theme = 'system';
+        localStorage.setItem('finacesTheme', 'system');
+    } 
+    document.documentElement.classList.toggle(theme);
 }
