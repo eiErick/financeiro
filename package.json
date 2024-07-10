@@ -1,0 +1,34 @@
+{
+  "name": "financeiro",
+  "version": "0.5.0",
+  "description": " A simple financial management app and website ",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "icon": "./build/icon/",
+    "productName": "financeiro",
+    "linux": {
+      "target": [
+        "snap",
+        "AppImage"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/eiErick/financeiro.git"
+  },
+  "author": "Érick",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/eiErick/qnote/issues"
+  },
+  "homepage": "https://github.com/eiErick/financeiro#readme",
+  "devDependencies": {
+    "electron": "^31.2.0",
+    "electron-builder": "^24.13.3"
+  }
+}
