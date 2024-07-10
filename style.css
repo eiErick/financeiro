@@ -142,10 +142,6 @@ body {
     text-align: center;
     font-size: 1.1rem;
 }
-/* 
-.monitor div {
-    color: #fff;
-} */
 
 .description {
     height: 2rem;
@@ -654,6 +650,23 @@ footer button {
 .edit-menu_form div button {
     width: 8rem;
     font-size: 1rem;
+}
+
+::-webkit-scrollbar {
+    width: .4rem;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555555cc;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 @media screen and (min-width: 800px) {
