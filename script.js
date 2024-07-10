@@ -244,7 +244,9 @@ dataSettingsBtn.addEventListener('click', () => {
 dataExportBtn.addEventListener('click', () => dataDownloader());
 
 deleteAllFinacesBtn.addEventListener('click', () => {
-    localStorage.clear();
+    localStorage.removeItem('profileSelected');
+    localStorage.removeItem('savedFinances');
+    localStorage.removeItem('finacesTheme');
     location.reload();
 });
 
