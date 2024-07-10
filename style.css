@@ -221,11 +221,7 @@ footer button {
     width: 39px;
     height: 39px;
     left: 0rem;
-}
-
-.in-ex-screen_return-home-btn img {
-    height: 39px;
-    fill: #224a86;
+    font-size: 2rem;
 }
 
 .in-ex-screen_title {
@@ -287,10 +283,7 @@ footer button {
     width: 39px;
     height: 39px;
     left: 0rem;
-}
-
-.settings-screen_return-home-btn img {
-    height: 39px;
+    font-size: 2rem;
 }
 
 .settings-screen_title {
