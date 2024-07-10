@@ -227,12 +227,7 @@ profiles.forEach((e) => {
     });
 });
 
-deleteProfileBtn.forEach((e) => {
-    e.addEventListener('click', () => {
-        console.log(e.parentNode.dataset.profile);
-        deleteProfile(e.parentNode.dataset.profile);
-    });
-});
+deleteProfileBtn.forEach((e) => e.addEventListener('click', () => deleteProfile(e.parentNode.dataset.profile)));
 
 dataSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, dataDisplay]);
@@ -385,9 +380,18 @@ async function createProfile() {
 }
 
 async function deleteProfile(name) {
-    if (await confirm(`Do you really want to delete the "${name}" profile and all its data`)) for (let i = 0; i <= finances.profile.length-1; i++) if (finances.profile[i] === name) finances.profile.splice(i, 2);
+    let numProfiles = 0;
 
+    if (await confirm(`Do you really want to delete the "${name}" profile and all its data`)) {
+        for (let i = 0; i < finances.profile.length; i += 2) numProfiles++;
+        for (let i = 0; i <= finances.profile.length-1; i++) if (finances.profile[i] === name) finances.profile.splice(i, 2);    
+    } 
+        
     localStorage.setItem('savedFinances', JSON.stringify(finances));
+    if (numProfiles === 1) {
+        localStorage.removeItem('savedFinances');
+        localStorage.removeItem('profileSelected');
+    } 
     location.reload();
 }
 
