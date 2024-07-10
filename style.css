@@ -218,6 +218,11 @@ footer button {
     height: 39px;
     left: 0rem;
     font-size: 2rem;
+    border-radius: var(--radius);
+}
+
+.in-ex-screen_return-home-btn:hover {
+    background-color: var(--border-color);
 }
 
 .in-ex-screen_title {
@@ -280,6 +285,11 @@ footer button {
     height: 39px;
     left: 0rem;
     font-size: 2rem;
+    border-radius: var(--radius);
+}
+
+.settings-screen_return-home-btn:hover {
+    background-color: var(--border-color);
 }
 
 .settings-screen_title {
