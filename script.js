@@ -156,13 +156,13 @@ document.addEventListener('click', (e) => {
 });
 
 addIncomeBtn.addEventListener('click', () => {
-    showScreen([inExScreen], 'flex');
+    showScreen([inExScreen]);
     inExScreenTitle.textContent = 'Income';
     inExScreenTitle.dataset.type = 'income';
 });
 
 addExpenseBtn.addEventListener('click', () => {
-    showScreen([inExScreen], 'flex');
+    showScreen([inExScreen]);
     inExScreenTitle.textContent = 'Expense';
     inExScreenTitle.dataset.type = 'expense';
 });
@@ -178,8 +178,8 @@ selectedMonth.addEventListener('change', () => {
     }
 });
 
-returnHomeBtn.addEventListener('click', () => showScreen([home], 'flex'));
-inExScreenCancelBtn.addEventListener('click', () => showScreen([home], 'flex'));
+returnHomeBtn.addEventListener('click', () => showScreen([home]));
+inExScreenCancelBtn.addEventListener('click', () => showScreen([home]));
 
 inExScreenForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -192,23 +192,25 @@ inExScreenForm.addEventListener('submit', (e) => {
     descriptionInput.value = '';
     valueInput.value = '';
 
-    showScreen([home], 'flex');
+    showScreen([home]);
 });
 
-settingsBtn.addEventListener('click', () => showScreen([settingsScreen, containerOptions], 'flex'));
+settingsBtn.addEventListener('click', () => showScreen([settingsScreen, containerOptions]));
 
 settingsScreenReturnHomeBtn.addEventListener('click', () => {
     if (settingsScreenTitle.dataset.menu != 'settings') {
-        showScreen([settingsScreen, containerOptions], 'flex');
+        showScreen([settingsScreen, containerOptions]);
+        showSettingsOptions(null);
         settingsScreenTitle.dataset.menu = 'settings';
         settingsScreenTitle.textContent = 'Settings';
-    } else showScreen([home], 'flex');
+    } else showScreen([home]);
 });
 
 document.querySelector('.add-profile-btn').addEventListener('click', () => createProfile());
 
 profileSettingsBtn.addEventListener('click', () => {
-    showScreen([settingsScreen, profileDisplay], 'flex');
+    showScreen([settingsScreen, profileDisplay]);
+    showSettingsOptions(profileDisplay);
     settingsScreenTitle.textContent = profileSettingsBtn.textContent;
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
@@ -233,7 +235,8 @@ deleteProfileBtn.forEach((e) => {
 });
 
 dataSettingsBtn.addEventListener('click', () => {
-    showScreen([settingsScreen, dataDisplay], 'flex');
+    showScreen([settingsScreen, dataDisplay]);
+    showSettingsOptions(dataDisplay);
     settingsScreenTitle.textContent = dataSettingsBtn.textContent;
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
@@ -246,7 +249,8 @@ deleteAllFinacesBtn.addEventListener('click', () => {
 });
 
 themeSettingsBtn.addEventListener('click', () => {
-    showScreen([settingsScreen, themeDisplay], 'flex');
+    showScreen([settingsScreen, themeDisplay]);
+    showSettingsOptions(themeDisplay);
     settingsScreenTitle.textContent = themeSettingsBtn.textContent;
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
@@ -257,28 +261,28 @@ stylMenu.addEventListener('change', () => {
 });
 
 languageSettingsBtn.addEventListener('click', () => {
-    showScreen([settingsScreen, languageDisplay], 'flex');
+    showScreen([settingsScreen, languageDisplay]);
+    showSettingsOptions(languageDisplay);
     settingsScreenTitle.textContent = languageSettingsBtn.textContent;
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
 aboutSettingsBtn.addEventListener('click', () => {
-    showScreen([settingsScreen, aboutDisplay], 'flex');
+    showScreen([settingsScreen, aboutDisplay]);
+    showSettingsOptions(aboutDisplay);
     settingsScreenTitle.textContent = aboutSettingsBtn.textContent;
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
-function showScreen(element, show) {
-    home.style.display = 'none';
-    inExScreen.style.display = 'none';
-    settingsScreen.style.display = 'none';
-    containerOptions.style.display = 'none'
-    profileDisplay.style.display = 'none';
-    dataDisplay.style.display = 'none';
-    themeDisplay.style.display = 'none';
-    languageDisplay.style.display = 'none';
-    aboutDisplay.style.display = 'none';
-    element.forEach((e) => e.style.display = show);
+function showScreen(element) {
+    [home, inExScreen, settingsScreen, containerOptions, profileDisplay, dataDisplay, themeDisplay, languageDisplay, aboutDisplay].forEach((e) => e.classList.add('hidden'));
+    element.forEach((e) => e.classList.remove('hidden'));
+}
+
+function showSettingsOptions(element) {
+    [profileDisplay, dataDisplay, themeDisplay, languageDisplay, aboutDisplay].forEach((e) => e.style.display = 'none');
+    if (element === null) return;
+    element.style.display = 'flex';
 }
 
 function printDescription(title, value, type, id) {

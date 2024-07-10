@@ -29,7 +29,7 @@
         </footer>
     </div>
 
-    <div class="in-ex-screen">
+    <div class="in-ex-screen hidden">
         <header>
             <button class="in-ex-screen_return-home-btn" >
                 <img src="imgs/left.svg" alt="back">
@@ -52,7 +52,7 @@
         </main>
     </div>
 
-    <div class="settings-screen">
+    <div class="settings-screen hidden">
         <header>
             <button class="settings-screen_return-home-btn" >
                 <img src="imgs/left.svg" alt="back">
@@ -67,18 +67,18 @@
             <span class="about-settings-btn settings-options"><img src="imgs/about.svg" alt="about icon">About</span>
         </main>
         <div class="screen-settings-option">
-            <div data-option="profile" class="profile-display options-display">
+            <div data-option="profile" class="profile-display options-display hidden">
                 <button class="add-profile-btn btns">Add Profile</button>
             </div>
 
-            <div data-option="Data" class="data-display options-display">
+            <div data-option="Data" class="data-display options-display hidden">
                 <span class="data-export data-btn">Export data</span>
                 <label for="data-inp" class="data-import data-btn">Import data</label>
                 <input type="file" id="data-inp" class="data-inp">
                 <span class="delete-all-finaces data-btn">Delete all finaces</span> 
             </div>
 
-            <div data-option="theme" class="theme-display options-display">
+            <div data-option="theme" class="theme-display options-display hidden">
                 <select class="style-menu">
                     <option value="system" selected>System Default</option>
                     <option value="dark">Dark</option>
@@ -86,14 +86,14 @@
                 </select>
             </div>
 
-            <div data-option="language" class="language-display options-display">
+            <div data-option="language" class="language-display options-display hidden">
                 <!-- <select class="language-menu">
                     <option value="en" selected>En</option>
                     <option value="pt">Pt</option>
                 </select> -->
             </div>
 
-            <div data-option="about" class="about-display options-display">
+            <div data-option="about" class="about-display options-display hidden">
                 <div>
                     <img class="app-img" src="imgs/financeiro.png" alt="financeiro img">
                     <p class="app-name">Financeiro</p>

@@ -61,9 +61,25 @@ body {
 }
 
 .home {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.visible {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
 }
 
 .home header {
@@ -187,18 +203,13 @@ footer button {
     font-size: 1rem;
 }
 
-.income-screen {
-    display: none;
-}
-
-.expense-screen {
-    display: none;
-}
-
 /* income and expense screen*/
 
 .in-ex-screen {
-    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -264,7 +275,7 @@ footer button {
 /* SETTINGS */
 
 .settings-screen {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -288,7 +299,7 @@ footer button {
 }
 
 .settings-screen main {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
@@ -311,12 +322,8 @@ footer button {
     margin: 0 .5rem 0 0;
 }
 
-.options-display {
-    display: none;
-}
-
 .profile-display {
-    display: none;
+    display: flex;
     flex-direction: column;
     width: 18rem;
 }
@@ -361,7 +368,7 @@ footer button {
 }
 
 .data-display {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -388,7 +395,7 @@ footer button {
 }
 
 .theme-display {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -403,7 +410,7 @@ footer button {
 }
 
 .language-display {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -419,7 +426,7 @@ footer button {
 }
 
 .about-display {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -442,6 +449,15 @@ footer button {
     max-width: 14rem;
     text-align: justify;
     font-size: .8rem;
+}
+
+.options-display {
+    display: none;
+}
+
+.screen-settings-option {
+    position: absolute;
+    margin-top: 4rem;
 }
 
 /* ALERT */
