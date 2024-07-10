@@ -63,6 +63,13 @@ const editMenuDescriptionInput = document.querySelector('.edit-menu_description-
 const editMenuValueInput = document.querySelector('.edit-menu_value-input');
 const editMenuCancelBtn = document.querySelector('.edit-menu_cancel-btn');
 
+addEventListener('error', async () => {
+    if (await confirm('We encountered an error on the page. Your data will be saved on your device and removed from the page in an attempt to resolve the issue.')) {
+        dataDownloader();
+        clearStorage();
+    }
+});
+
 const date = new Date();
 const currentDate = `${getMonth()}-${getYear()}`;
 
@@ -239,10 +246,7 @@ dataSettingsBtn.addEventListener('click', () => {
 dataExportBtn.addEventListener('click', () => dataDownloader());
 
 deleteAllFinacesBtn.addEventListener('click', () => {
-    localStorage.removeItem('profileSelected');
-    localStorage.removeItem('savedFinances');
-    localStorage.removeItem('finacesTheme');
-    location.reload();
+    clearStorage();
 });
 
 themeSettingsBtn.addEventListener('click', () => {
@@ -290,6 +294,13 @@ function printDescription(title, value, type, id) {
 
 function clearDescription() {
     descriptionContainer.innerHTML = '';
+}
+
+function clearStorage() {
+    localStorage.removeItem('profileSelected');
+    localStorage.removeItem('savedFinances');
+    localStorage.removeItem('finacesTheme');
+    location.reload();
 }
 
 function saveFinaceDescription(title, value, type, month, id) {
