@@ -46,6 +46,7 @@ const themeSettingsBtn = document.querySelector('.theme-settings-btn');
 const themeDisplay = document.querySelector('.theme-display');
 const languageSettingsBtn = document.querySelector('.language-settings-btn');
 const languageDisplay = document.querySelector('.language-display');
+const languageMenu = document.querySelector('.language-menu');
 const aboutSettingsBtn = document.querySelector('.about-settings-btn');
 const aboutDisplay = document.querySelector('.about-display');
 let profiles = document.querySelectorAll('.profiles');
@@ -74,8 +75,16 @@ const date = new Date();
 const currentDate = `${getMonth()}-${getYear()}`;
 
 let finances = {};
+let language = 'en';
+
 const savedFinances = localStorage.getItem('savedFinances');
 let profileSelected = localStorage.getItem('profileSelected');
+let savedFinancesLanguage = localStorage.getItem('savedFinancesLanguage');
+
+if (savedFinancesLanguage) {
+    language = savedFinancesLanguage;
+    languageMenu.value = language;
+} else localStorage.setItem('savedFinancesLanguage', language);
 
 if (savedFinances) {
     finances = JSON.parse(savedFinances);
@@ -268,6 +277,11 @@ languageSettingsBtn.addEventListener('click', () => {
     settingsScreenTitle.dataset.menu = profileSettingsBtn.textContent;
 });
 
+languageMenu.addEventListener('change', () => {
+    localStorage.setItem('savedFinancesLanguage', languageMenu.value);
+    location.reload();
+});
+
 aboutSettingsBtn.addEventListener('click', () => {
     showScreen([settingsScreen, aboutDisplay]);
     showSettingsOptions(aboutDisplay);
@@ -300,6 +314,7 @@ function clearStorage() {
     localStorage.removeItem('profileSelected');
     localStorage.removeItem('savedFinances');
     localStorage.removeItem('finacesTheme');
+    localStorage.removeItem('savedFinancesLanguage');
     location.reload();
 }
 
